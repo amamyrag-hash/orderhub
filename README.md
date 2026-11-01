@@ -2,9 +2,20 @@
 
 سیستم مدیریت سفارش‌ها، ساخته‌شده با Laravel.
 
+## امکانات
+
+
+
+## تکنولوژی 
+
+-PHP 8.3
+-LARAVEL 13
+-MYSQL
+-REDIS
+
 ## پیش‌نیازها
 
-- PHP 8.2 یا بالاتر
+- PHP 8.3 یا بالاتر
 - Composer
 - MySQL 8 (یا MariaDB)
 - Redis (روی ویندوز: Memurai یا Laragon)
@@ -13,7 +24,7 @@
 ## راه‌اندازی
 
 bash
-git clone <آدرس-ریپو> orderby
+git clone https://gitlab.com/sibsa-group/orderhub.git
 cd orderby
 composer install
 cp .env.example .env
@@ -22,7 +33,7 @@ php artisan key:generate
 
 sql
 CREATE DATABASE orderby CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-سپس مقادیر DB_USERNAME و DB_PASSWORD را در .env با تنظیمات خودتان یکی کنید، مطمئن شوید Redis روشن است (`redis-cli ping` باید PONG بدهد) و اجرا کنید:
+سپس مقادیر DB_USERNAME و DB_PASSWORD را در .env با تنظیمات خودتان یکی کنید، مطمئن شوید Redis روشن است (`memurai-cli ping` باید PONG بدهد) و اجرا کنید:
 
 bash
 php artisan migrate
