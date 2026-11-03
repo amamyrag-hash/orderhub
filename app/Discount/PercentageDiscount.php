@@ -19,7 +19,7 @@ final class PercentageDiscount implements DiscountPolicy
     {
         $discountAmount = intdiv($price->amount * $this->percent , 100);
 
-        return new Money($price->amount-$discountAmount , $price->currency);
+        return new Money($discountAmount , $price->currency);
     }
 
 }
