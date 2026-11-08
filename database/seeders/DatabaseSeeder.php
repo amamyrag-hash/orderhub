@@ -2,24 +2,36 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Customer;
+use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        // User::factory(10)->create();
+        Product::factory(15)->create();
+        Product::factory(3)->outOfStock()->create();
+        Product::factory(3)->discounted(30)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        Customer::factory(8)->create();
+        Customer::factory(2)->withoutContact()->create();
+
+        $customers = Customer::all();
+
+        foreach ($customers as $customer) {
+            Order::factory()
+                ->for($customer)
+                ->count(4)
+                ->sequence(
+                    ['status' => 'pending'],
+                    ['status' => 'paid'],
+                    ['status' => 'shipped'],
+                    ['status' => 'canceled'],
+                )
+                ->withItems(rand(1, 4))
+                ->create();
+        }
     }
 }
