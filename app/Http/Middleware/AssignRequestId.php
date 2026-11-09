@@ -4,7 +4,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Str;
 
 class AssignRequestId
 {
@@ -15,6 +17,11 @@ class AssignRequestId
      */
     public function handle(Request $request, Closure $next): Response
     {
-        return
+        $requestId = $request->header("X-Request-Id") ?: (string) Str::uuid();
+        $request->headers->set("x-Request-Id", $requestId);
+        Log::withContext(["request_id"=> $requestId]);
+        $response = $next($request);
+        $response->headers->set("X-Request-Id", $requestId);
+        return $response;
     }
 }
