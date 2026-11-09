@@ -15,8 +15,10 @@ enum OrderStatus : string
     public function lable(): string
     {
         return match ($this){
+            self::Draft => "پیش نویس",
             self::Pending =>'در انتظار برداخت',
-            self::Paid => 'ئرداخت شد',
+            self::Invoiced => "فاکتور شده",
+            self::Paid => 'پرداخت شد',
             self::Shipped => "ارسال شد",
             self::Delivered => "تحویل شد",
             self::Canceled => "لغو شد",

@@ -22,13 +22,24 @@ class OrderFactory extends Factory
     {
         return [
             'customer_id'=> Customer::factory(),
-            'status'=> fake()->randomElement(['pending' , 'paid' , 'shipped' , 'canceled']),
+            'status'=> fake()->randomElement(['draft','pending','invoiced' , 'paid' , 'shipped' , 'canceled']),
             'total_amount'=> 0,
         ];
     }
+    public function draft(): static
+    {
+        return $this->state(fn () =>['status'=>'draft']);
+    }
+
+    
     public function pending(): static
     {
         return $this->state(fn () => ['status' => 'pending']);
+    }
+
+    public function invoiced(): static
+    {
+        return $this->state(fn () => ['status'=> 'invoiced']);
     }
 
     public function paid(): static

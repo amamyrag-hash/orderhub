@@ -25,7 +25,7 @@ class ProductRequest extends FormRequest
         return [
             'name'=>['required' , 'string' , 'max:255'],
             'sku'=>['required' , 'string', 'max:50' , 'unique:products,sku'],
-            'description'=>['nullable', 'text'],
+            'description'=>['nullable', 'string'],
             'price'=>['required' , 'numeric'  , 'min:0' , 'decimal:0,2' , 'max:99999999.99'],
             'stock'=>['nullable' , 'integer' , 'min:0' , 'max:32767']
         ];

@@ -34,7 +34,7 @@ class Order extends Model
         static::updating(function(Order $order){
             if(
                 $order->isDirty('status')
-                && $order->getOriginal('status')=== OrderStatus::Draft
+                && $order->getOriginal('status')=== OrderStatus::Pending
                 && $order->status===OrderStatus::Invoiced
                 && $order->invoice_date ===null
             ){

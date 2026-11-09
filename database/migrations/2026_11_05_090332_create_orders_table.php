@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('customer_id')->constrained()->restrictOnDelete();  
-            $table->enum('status' , ['pending' , 'paid' , 'shipped' , 'canceled'])->default('pending');
+            $table->enum('status' , ['draft','pending', 'invoiced' , 'paid' , 'shipped' , 'canceled'])->default('draft');
             $table->timestamp('invoice_date')->nullable();
             $table->decimal('total_amount',10,2)->default(0);
             $table->timestamps();

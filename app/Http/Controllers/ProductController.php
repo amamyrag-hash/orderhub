@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -11,30 +12,31 @@ class ProductController extends Controller
 {
     public function index(){
         $products = Product::orderBy("id","desc")->paginate(10);
-        return ProductResource::collection($products);
+        return view("products.index", compact("products"));
 
+    }
+
+    public function create(){
+       return view("products.create");
     }
 
     public function store(ProductRequest $request){
-        $product=Product::create($request->validated);
-        
-        return new ProductResource($product);
- 
+        $product = Product::create($request->validated());
+        return redirect()->route("products.index")->with("success","محصول ایجاد شد");
+    }
+    
+    public function edit(Product $product){
+        return view('products.edit', compact('product'));
     }
 
-    public function show($id){
-       $product=Product::findOrFail($id);
-       return new ProductResource($product);
 
+    public function update(UpdateProductRequest $request , Product $product){
+         $product->update($request->validated());
+         return redirect()->route('products.index')->with('success','محصول ویرایش شد');
     }
 
-    public function update(ProductRequest $request, $id){
-         $product=Product::findOrFail($id);
-         $product->update($request->validated);
-    }
-
-    public function destroy($id){
-       $product=Product::findOrFail($id);
+    public function destroy(Product $product){
        $product->delete();
+       return redirect()->route('products.index')->with('success','محصول حذف شد');
     }
 }
