@@ -23,10 +23,10 @@ class ProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'=>['required' , 'string' , 'max:255'],
+            'name'=>['required' , 'string' , 'max:100'],
             'sku'=>['required' , 'string', 'max:50' , 'unique:products,sku'],
             'description'=>['nullable', 'string'],
-            'price'=>['required' , 'numeric'  , 'min:0' , 'decimal:0,2' , 'max:99999999.99'],
+            'price'=>['required' , 'numeric'  , 'min:1' , 'decimal:0,2' , 'max:99999999.99'],
             'stock'=>['nullable' , 'integer' , 'min:0' , 'max:32767']
         ];
     }
